@@ -1,39 +1,93 @@
 "use strict";
 const rollback = 40;
-let title = prompt("Как называется ваш проект?", "lesson03"); // спросим в всплыв.окошке и ответ запишем в переменную
+let title = " КаЛьКулятор Верстки";
 let screens = prompt(
   "Какие типы экранов нужно разработать?",
   "Простые, Сложные, Интерактивные"
 );
-let screenPrice = +prompt("Сколько будет стоить данная работа?", "20000rub");
-let adaptive = confirm("Нужен ли адаптив на сайте?"); // вопрос с булевыми ответами
-let service1 = prompt("Какой дополнительный тип услуги нужен?");
-let servicePrice1 = +prompt("Сколько это будет стоить?");
-let service2 = prompt("Какой дополнительный тип услуги нужен?");
-let servicePrice2 = +prompt("Сколько это будет стоить?");
+let screenPrice = +prompt("Сколько будет стоить данная работа?", "20000");
+let servicePrice1 = +prompt("Сколько это будет стоить?", "2400");
+let servicePrice2 = +prompt("Сколько это будет стоить?", "7600");
+let allServicePrices;
+let fullPrice;
+let servicePercentPrice;
+// ------------------Lesson04: ------------------
 
-let fullPrice = screenPrice + servicePrice1 + servicePrice2;
-let rollbackPerc = fullPrice * (rollback / 100);
-let servicePercentPrice = fullPrice - rollbackPerc;
-
-console.log("Название проекта: " + title); //---------------------------------------------
-console.log("Типы экранов: " + screens); //---------------------------------------------
-console.log("Цена работы: " + screenPrice); //---------------------------------------------
-console.log("Нужен адаптив?: " + adaptive); //---------------------------------------------
-console.log("Доп.услуга 1: " + service1); //---------------------------------------------
-console.log("Цена доп.услуги 1: " + servicePrice1); //---------------------------------------------
-console.log("Доп.услуга 2: " + service2); //---------------------------------------------
-console.log("Цена доп.услуги 2: " + servicePrice2); //---------------------------------------------
-console.log("Итоговая стоимость с доп.усл.: " + fullPrice); //---------------------------------------------
-console.log("Откат посреднику: " + rollbackPerc); //---------------------------------------------
-console.log("Итоговая стоимость после вычетов: " + servicePercentPrice); //---------------------------------------------
-
-if (fullPrice >= 30000) {
-  console.log("Даем скидку в 10%");
-} else if (fullPrice >= 15000 && fullPrice < 30000) {
-  console.log("Даем скидку в 5%");
-} else if (fullPrice < 15000 && fullPrice >= 0) {
-  console.log("Скидка не предусмотрена");
-} else {
-  console.log("Что-то пошло не так!");
+// 1) Тип - function expression:
+function getAllServicePrices(price1, price2) {
+  return (allServicePrices = price1 + price2);
 }
+
+// 2) Тип - function declaration:
+const getFullPrice = function (price1, price2) {
+  return (fullPrice = price1 + price2);
+};
+
+// 3) первый символ с большой буквы, остальные с маленькой:
+const getTitle = function (titleFunc) {
+  return (
+    titleFunc.trimStart()[0].toUpperCase() +
+    titleFunc.trimStart().slice(1).toLowerCase()
+  );
+};
+// trimStart() убирает пробел с начала строки до первого символа;
+// нулевой символ[0] поднимаем с toUpperCase(), и ещё раз trimStart() убирает пробел,
+// чтобы slice(1) начал запись с символа [1] без учета пробелов и, затем, опускаем регистр строк.
+
+// 4) Итоговая стоимость после вычетов rollbackPerc:
+const getServicePercentPrices = function (fullPrNum) {
+  return (servicePercentPrice =
+    fullPrNum - getRollbackPerc(fullPrice, rollback));
+};
+
+const getRollbackPerc = function (getPrice, getRoll) {
+  return getPrice * (getRoll / 100);
+};
+
+//5) typeOf функция:
+const showTypeOf = function (varType) {
+  console.log(varType, typeof varType);
+};
+
+//6) ф-ция getRollbackMessage:
+const getRollbackMessage = function (price) {
+  if (price >= 30000) {
+    return "Даем скидку в 10%";
+  } else if (price >= 15000 && price < 30000) {
+    return "Даем скидку в 5%";
+  } else if (price < 15000 && price >= 0) {
+    return "Скидка не предусмотрена";
+  } else {
+    return "Что-то пошло не так!";
+  }
+};
+
+// вызовы ф-ции с соотв. аргументами:
+getAllServicePrices(servicePrice1, servicePrice2);
+getFullPrice(screenPrice, allServicePrices);
+getTitle(title);
+getServicePercentPrices(fullPrice, getRollbackPerc(fullPrice, rollback));
+getRollbackPerc(fullPrice, rollback); // callback функция для юза в getServicePercentPrices
+
+showTypeOf(getTitle(title));
+showTypeOf(screens);
+showTypeOf(screenPrice);
+showTypeOf(fullPrice);
+showTypeOf(servicePercentPrice);
+
+console.log(
+  "Сумма всех доп. услуг: " +
+    getAllServicePrices(servicePrice1, servicePrice2) +
+    " rub"
+);
+console.log(
+  "Вёрстка и доп. услуги: " +
+    getFullPrice(screenPrice, allServicePrices) +
+    " rub"
+);
+console.log(getRollbackMessage(fullPrice));
+console.log(
+  "Итоговая стоимость после вычетов: " +
+    getServicePercentPrices(fullPrice) +
+    " rub"
+);
