@@ -1,13 +1,10 @@
 "use strict";
 const rollback = 40;
 let title = " КаЛьКулятор Верстки";
-let screens = prompt(
-  "Какие типы экранов нужно разработать?",
-  "Простые, Сложные, Интерактивные"
-);
-let screenPrice = +prompt("Сколько будет стоить данная работа?", "20000");
-let servicePrice1 = +prompt("Сколько это будет стоить?", "2400");
-let servicePrice2 = +prompt("Сколько это будет стоить?", "7600");
+let screens;
+let screenPrice;
+let servicePrice1;
+let servicePrice2;
 let allServicePrices;
 let fullPrice;
 let servicePercentPrice;
@@ -62,7 +59,29 @@ const getRollbackMessage = function (price) {
   }
 };
 
+// получение значения переменной screenPrice циклом do while
+const isNumber = function (num) {
+  return !isNaN(parseFloat(num)) && isFinite(num);
+};
+
+const asking = function () {
+  screens = prompt(
+    "Какие типы экранов нужно разработать?",
+    "Простые, Сложные, Интерактивные"
+  );
+  do {
+    screenPrice = prompt("Сколько будет стоить данная работа?", "15000");
+  } while (!isNumber(screenPrice));
+  do {
+    servicePrice1 = prompt("Сколько это будет стоить?", "2400");
+  } while (!isNumber(servicePrice1));
+  do {
+    servicePrice2 = prompt("Сколько это будет стоить?", "7600");
+  } while (!isNumber(servicePrice2));
+};
+
 // вызовы ф-ции с соотв. аргументами:
+asking();
 getAllServicePrices(servicePrice1, servicePrice2);
 getFullPrice(screenPrice, allServicePrices);
 getTitle(title);
