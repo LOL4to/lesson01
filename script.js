@@ -8,6 +8,9 @@ let servicePrice2;
 let allServicePrices;
 let fullPrice;
 let servicePercentPrice;
+let screenPriceStr;
+let servicePrice1Str;
+let servicePrice2Str;
 // ------------------Lesson04: ------------------
 
 // 1) Тип - function expression:
@@ -70,14 +73,17 @@ const asking = function () {
     "Простые, Сложные, Интерактивные"
   );
   do {
-    screenPrice = prompt("Сколько будет стоить данная работа?", "15000");
-  } while (!isNumber(screenPrice));
+    screenPriceStr = prompt("Сколько будет стоить данная работа?", "15000");
+    screenPrice = +screenPriceStr;
+  } while (!isNumber(screenPriceStr));
   do {
-    servicePrice1 = prompt("Сколько это будет стоить?", "2400");
-  } while (!isNumber(servicePrice1));
+    servicePrice1Str = prompt("Сколько это будет стоить?", "2400");
+    servicePrice1 = +servicePrice1Str;
+  } while (!isNumber(servicePrice1Str));
   do {
-    servicePrice2 = prompt("Сколько это будет стоить?", "7600");
-  } while (!isNumber(servicePrice2));
+    servicePrice2Str = prompt("Сколько это будет стоить?", "7600");
+    servicePrice2 = +servicePrice2Str;
+  } while (!isNumber(servicePrice2Str));
 };
 
 // вызовы ф-ции с соотв. аргументами:
