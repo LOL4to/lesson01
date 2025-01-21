@@ -11,7 +11,6 @@ let servicePercentPrice;
 let screenPriceStr;
 let servicePrice1Str;
 let servicePrice2Str;
-// ------------------Lesson04: ------------------
 
 // 1) Тип - function expression:
 function getAllServicePrices(price1, price2) {
