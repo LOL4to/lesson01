@@ -1,117 +1,79 @@
 "use strict";
-const rollback = 40;
-let title = " КаЛьКулятор Верстки";
-let screens;
-let screenPrice;
-let servicePrice1;
-let servicePrice2;
-let allServicePrices;
-let fullPrice;
-let servicePercentPrice;
-let screenPriceStr;
-let servicePrice1Str;
-let servicePrice2Str;
+let count;
+let pcNumb = Math.ceil(Math.random() * 100);
 
-// 1) Тип - function expression:
-function getAllServicePrices(price1, price2) {
-  return (allServicePrices = price1 + price2);
+function outerFunc() {
+  const isNumber = function () {
+    let num = prompt("Угадай число от 1 до 100", pcNumb);
+    let boolVar = !isNaN(parseFloat(num) && isFinite(num));
+    if (!num) {
+      return alert("До встречи! (4^_^)");
+    } else {
+      switch (boolVar) {
+        case true:
+          return parseFloat(num);
+        case false:
+          alert("Введи число");
+          return isNumber();
+      }
+    }
+  };
+  return isNumber;
 }
 
-// 2) Тип - function declaration:
-const getFullPrice = function (price1, price2) {
-  return (fullPrice = price1 + price2);
-};
-
-// 3) первый символ с большой буквы, остальные с маленькой:
-const getTitle = function (titleFunc) {
-  return (
-    titleFunc.trimStart()[0].toUpperCase() +
-    titleFunc.trimStart().slice(1).toLowerCase()
-  );
-};
-// trimStart() убирает пробел с начала строки до первого символа;
-// нулевой символ[0] поднимаем с toUpperCase(), и ещё раз trimStart() убирает пробел,
-// чтобы slice(1) начал запись с символа [1] без учета пробелов и, затем, опускаем регистр строк.
-
-// 4) Итоговая стоимость после вычетов rollbackPerc:
-const getServicePercentPrices = function (fullPrNum) {
-  return (servicePercentPrice =
-    fullPrNum - getRollbackPerc(fullPrice, rollback));
-};
-
-const getRollbackPerc = function (getPrice, getRoll) {
-  return getPrice * (getRoll / 100);
-};
-
-//5) typeOf функция:
-const showTypeOf = function (varType) {
-  console.log(varType, typeof varType);
-};
-
-//6) ф-ция getRollbackMessage:
-const getRollbackMessage = function (price) {
-  if (price >= 30000) {
-    return "Даем скидку в 10%";
-  } else if (price >= 15000 && price < 30000) {
-    return "Даем скидку в 5%";
-  } else if (price < 15000 && price >= 0) {
-    return "Скидка не предусмотрена";
-  } else {
-    return "Что-то пошло не так!";
+const gameStart = function (myCount = 0, randomNumb) {
+  const gameEndHappy = function () {
+    if (confirm("Поздравляю, Вы угадали!!! Хотели бы сыграть еще?")) {
+      myCount = 0;
+      console.log("Погнали ещё раз!");
+      return countFunc();
+    } else {
+      console.log("Ну пока!");
+      alert("До встречи! (^_^)");
+    }
+  };
+  const gameEndBad = function () {
+    if (confirm("Попытки закончились, хотите сыграть еще?")) {
+      myCount = 0;
+      console.log("Погнали ещё раззз!");
+      return countFunc();
+    } else {
+      console.log("Ну покааа!");
+      return alert("До встречи! (^_^)");
+    }
+  };
+  // ф-ция-счётчик + ф-ция вызывает саму себя, если попыток < 10
+  function countFunc() {
+    myCount++;
+    const isNumber = outerFunc();
+    let variable = isNumber();
+    console.log(variable);
+    // условия:
+    if (myCount < 10) {
+      if (variable > randomNumb) {
+        console.log(
+          "Загаданное число меньше, " +
+            "осталось " +
+            (10 - myCount) +
+            " попыток"
+        );
+        return countFunc();
+      } else if (variable < randomNumb) {
+        console.log(
+          "Загаданное число больше, " +
+            "осталось " +
+            (10 - myCount) +
+            " попыток"
+        );
+        return countFunc();
+      } else if (variable == randomNumb) {
+        return gameEndHappy();
+      }
+    } else if (myCount >= 10) {
+      return gameEndBad();
+    }
   }
+  countFunc();
 };
-
-// получение значения переменной screenPrice циклом do while
-const isNumber = function (num) {
-  return !isNaN(parseFloat(num)) && isFinite(num);
-};
-
-const asking = function () {
-  screens = prompt(
-    "Какие типы экранов нужно разработать?",
-    "Простые, Сложные, Интерактивные"
-  );
-  do {
-    screenPriceStr = prompt("Сколько будет стоить данная работа?", "15000");
-    screenPrice = +screenPriceStr;
-  } while (!isNumber(screenPriceStr));
-  do {
-    servicePrice1Str = prompt("Сколько это будет стоить?", "2400");
-    servicePrice1 = +servicePrice1Str;
-  } while (!isNumber(servicePrice1Str));
-  do {
-    servicePrice2Str = prompt("Сколько это будет стоить?", "7600");
-    servicePrice2 = +servicePrice2Str;
-  } while (!isNumber(servicePrice2Str));
-};
-
-// вызовы ф-ции с соотв. аргументами:
-asking();
-getAllServicePrices(servicePrice1, servicePrice2);
-getFullPrice(screenPrice, allServicePrices);
-getTitle(title);
-getServicePercentPrices(fullPrice, getRollbackPerc(fullPrice, rollback));
-getRollbackPerc(fullPrice, rollback); // callback функция для юза в getServicePercentPrices
-
-showTypeOf(getTitle(title));
-showTypeOf(screens);
-showTypeOf(screenPrice);
-showTypeOf(fullPrice);
-showTypeOf(servicePercentPrice);
-
-console.log(
-  "Сумма всех доп. услуг: " +
-    getAllServicePrices(servicePrice1, servicePrice2) +
-    " rub"
-);
-console.log(
-  "Вёрстка и доп. услуги: " +
-    getFullPrice(screenPrice, allServicePrices) +
-    " rub"
-);
-console.log(getRollbackMessage(fullPrice));
-console.log(
-  "Итоговая стоимость после вычетов: " +
-    getServicePercentPrices(fullPrice) +
-    " rub"
-);
+//
+gameStart(count, pcNumb);
