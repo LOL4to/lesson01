@@ -1,0 +1,31 @@
+{   
+    "editor.guides.bracketPairs": true,
+    "workbench.colorTheme": "Material Theme Palenight High Contrast",
+    "workbench.iconTheme": "material-icon-theme",
+    "explorer.confirmDelete": false,
+    "liveSassCompile.settings.forceBaseDirectory": "",
+    "liveSassCompile.settings.showAnnouncements": null,
+    "liveSassCompile.settings.rootIsWorkspace": null,
+    "liveSassCompile.settings.generateMap": false,
+    "liveSassCompile.settings.formats": [
+        {
+            "format": "compressed",
+            "extensionName": ".css",
+            "savePath": "./css/",
+        }
+    ],
+    "gulp.autoDetect": "on",
+    "editor.minimap.scale": 2,
+    "workbench.settings.editor": "ui",
+    "screencastMode.mouseIndicatorColor": "#FF4100",
+    "window.openFoldersInNewWindow": "on",
+    "workbench.editor.limit.enabled": true,
+    "workbench.editor.wrapTabs": true,
+    "window.zoomLevel": 1,
+    "vsicons.dontShowNewVersionMessage": true,
+    "[javascript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "terminal.integrated.defaultProfile.windows": "Git Bash",
+    "editor.formatOnSave": true
+}
