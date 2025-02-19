@@ -79,7 +79,7 @@ const appData = {
   addScreens: function () {
     this.screens.length = 0;
     screens = document.querySelectorAll(".screen");
-    screens.forEach(function (screen, index) {
+    screens.forEach((screen, index) => {
       const select = screen.querySelector("select");
       const input = screen.querySelector("input");
       const selectName = select.options[select.selectedIndex].textContent;
@@ -101,7 +101,7 @@ const appData = {
 
   //создаем массив из доп услуг (%)
   addServices: function () {
-    itemPercent.forEach(function (item) {
+    itemPercent.forEach((item) => {
       const check = item.querySelector("input[type=checkbox]");
       const label = item.querySelector("label");
       const input = item.querySelector("input[type=text]");
@@ -255,7 +255,7 @@ const appData = {
     this.servicePercentNumber = 0;
     this.screenCount = 0;
     //запрет нажатия на инпуты
-    screens.forEach(function (elem) {
+    screens.forEach((elem) => {
       const input = elem.querySelector("input[type=text]");
       const select = elem.querySelector("select");
       input.disabled = true;
@@ -270,7 +270,7 @@ const appData = {
   },
 
   resetAfterStart: function () {
-    screens.forEach(function (elem) {
+    screens.forEach((elem) => {
       const input = elem.querySelector("input[type=text]");
       const select = elem.querySelector("select");
       // input.textContent = "";
@@ -307,7 +307,7 @@ const appData = {
     cmsInput.disabled = false;
     cmsSelect[0].selected = true;
     cmsInput.value = "";
-    cmsInput.placeholder = "haha";
+    cmsInput.placeholder = "% стоимости за работу";
 
     //все значения на чтение Итого = 0
     this.screenPrice = 0;
